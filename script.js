@@ -13,6 +13,8 @@ for (let i = 1; i<4; i++) {
     document.getElementById("background"+i).style.backgroundPositionY = Math.random() * 2000 + "px";
 }
 document.getElementById("decimalAmount").addEventListener("change", () => {
+    if (document.getElementById("decimalAmount").value >= 100)
+        document.getElementById("decimalAmount").value = 100;
     fixedAmount = document.getElementById("decimalAmount").value;
 });
 document.getElementById("pizzaManStart").addEventListener("click", () => {
