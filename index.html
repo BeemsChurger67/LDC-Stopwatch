@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>LDC Stopwatch</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="assets/ldcIcon.png" type="image/x-icon">
+    </head>
+    <body>
+        <svg>
+            <filter id="red">
+                <feColorMatrix
+                type="matrix"
+                values="1 0 0 0 0
+                        0 0 0 0 0
+                        0 0 0 0 0
+                        0 0 0 1 0 "/>
+            </filter>
+        </svg>
+        <div id="entireBody">
+            <div id="background">
+                <div class="backgroundC" id="background1"></div>
+                <div class="backgroundC" id="background2"></div>
+                <div class="backgroundC" id="background3"></div>
+            </div>
+            <div id="holder">
+                <div id="mainPage">
+                    <div id="ldcText">LDC</div>
+                    <div id="ldcDescription">The Longest Discord Call.</div>
+                    <div id="timers">
+                        <div>Ldc started at<div id="overallLDCTimer"></div></div>
+                        <br>
+                        <div id="daysSinceLDC">Days since LDC: 0</div>
+                        <div id="hoursSinceLDC">Hours since LDC: 0</div>
+                        <div id="minutesSinceLDC">Minutes since LDC: 0</div>
+                        <div id="secondsSinceLDC">Seconds since LDC: 0</div>
+                        <div id="msSinceLDC">MS since LDC: 0</div>
+                        <div>You have been on this site for <div id="siteTime"></div></div>
+                        <div>Number decimal amount: <input type="number" id="decimalAmount" style="border-radius: 1vh; height:3vh; font-size: 2vh; width:5vh;"></div>
+                        <div><button id="pizzaManStart">Pizza Man</button></div>
+                    </div>
+                </div>
+                <div id="pizzaManTimer">
+                    <div class="fogTimer" id="fogTimer1"></div>
+                    <div class="fogTimer" id="fogTimer2"></div>
+                    <div class="fogTimer" id="fogTimer3"></div>
+                    <div id="secondTimer"></div>
+                    <button id="goBack">Go Back</button>
+                </div>
+            </div>
+        </div>
+        <div id="transition"></div>
+        <div id="static"></div>
+        <script src="script.js"></script>
+    </body>
+</html>
