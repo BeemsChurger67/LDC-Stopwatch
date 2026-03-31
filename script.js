@@ -30,16 +30,17 @@ let transitionOpacity = 1.3;
 let volumeTransition = -0.3;
 let volumeDisplay = 0;
 let pizzaManEnabled = false;
-function pizzaTimer(dt) {
-
-}
-function menu(dt) {
-
-}
 let firstFrame = [false, false];
 let tick = false;
 let values = [0,0];
 let timerShake = 0;
+function secondsToClock(ms) {
+    const newSec = ms / 1000 % 60;
+    const min = ms / 1000 / 60 % 60;
+    const hrs = ms / 1000 / 60 / 60 % 24;
+    const days = ms / 1000 / 60 / 60 / 24;
+    return Math.floor(days) + ":" + Math.floor(hrs) + ":" + (min <= 10 ? + "0" : "") + Math.floor(min) + ":" + (newSec <= 10 ? + "0" : "") + Math.floor(newSec);
+}
 function update(time) {
     const dt = (time - lastTime) / 1000;
     lastTime = time;
@@ -70,12 +71,22 @@ function update(time) {
             SFX[sound].volume = volumeDisplay;
         }
         document.getElementById("overallLDCTimer").textContent = dateLdcStart;
-        document.getElementById("daysSinceLDC").textContent = "Days since LDC: " + (timeDiff/1000/60/60/24).toFixed(fixedAmount);
-        document.getElementById("hoursSinceLDC").textContent = "Hours since LDC: " + (timeDiff/1000/60/60).toFixed(fixedAmount);
-        document.getElementById("minutesSinceLDC").textContent = "Minutes since LDC: " + (timeDiff/1000/60).toFixed(fixedAmount);
-        document.getElementById("secondsSinceLDC").textContent = "Seconds since LDC: " + (timeDiff/1000).toFixed(fixedAmount);
-        document.getElementById("msSinceLDC").textContent = "MS since LDC: " + (timeDiff).toFixed(fixedAmount);
-        document.getElementById("siteTime").textContent = ((now - siteDate) / 1000).toFixed(fixedAmount) + "s";
+        document.getElementById("stopwatchLDC").textContent = secondsToClock(now - dateLdcStart);
+        if (fixedAmount !== 0) {
+            document.getElementById("daysSinceLDC").textContent = "Days since LDC: " + (timeDiff/1000/60/60/24).toFixed(fixedAmount);
+            document.getElementById("hoursSinceLDC").textContent = "Hours since LDC: " + (timeDiff/1000/60/60).toFixed(fixedAmount);
+            document.getElementById("minutesSinceLDC").textContent = "Minutes since LDC: " + (timeDiff/1000/60).toFixed(fixedAmount);
+            document.getElementById("secondsSinceLDC").textContent = "Seconds since LDC: " + (timeDiff/1000).toFixed(fixedAmount);
+            document.getElementById("msSinceLDC").textContent = "MS since LDC: " + (timeDiff).toFixed(fixedAmount);
+            document.getElementById("siteTime").textContent = ((now - siteDate) / 1000).toFixed(fixedAmount) + "s";
+        } else {
+            document.getElementById("daysSinceLDC").textContent = "Days since LDC: " + Math.floor(timeDiff/1000/60/60/24);
+            document.getElementById("hoursSinceLDC").textContent = "Hours since LDC: " + Math.floor(timeDiff/1000/60/60);
+            document.getElementById("minutesSinceLDC").textContent = "Minutes since LDC: " + Math.floor(timeDiff/1000/60);
+            document.getElementById("secondsSinceLDC").textContent = "Seconds since LDC: " + Math.floor(timeDiff/1000);
+            document.getElementById("msSinceLDC").textContent = "MS since LDC: " + Math.floor(timeDiff);
+            document.getElementById("siteTime").textContent = Math.floor((now - siteDate) / 1000) + "s";
+        }
     } else {
         if (!firstFrame[1]) {
             firstFrame[1] = true;
@@ -85,10 +96,11 @@ function update(time) {
             values[0] = Math.floor((timeDiff/1000));
             values[1] = Math.floor((timeDiff/1000));
             document.getElementById("entireBody").style = "position: absolute; inset: 0; filter: url(#red);";
+            
         }
         transitionOpacity -= dt / 5;
         document.getElementById("transition").style.opacity = transitionOpacity;
-        document.getElementById("secondTimer").textContent = Math.floor((timeDiff/1000));
+        document.getElementById("secondTimer").textContent = secondsToClock(timeDiff);
         values[1] = values[0];
         values[0] = Math.floor((timeDiff/1000));
         if (Math.floor((timeDiff/10)) % 5 == 0) {
